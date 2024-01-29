@@ -1,0 +1,6 @@
+@ServicesProvider_HostAddress = http://localhost:5294
+
+GET {{ServicesProvider_HostAddress}}//
+Accept: application/json
+
+###
