@@ -16,6 +16,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIServicesProvider", "APIS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeuBarbeiroTests", "MeuBarbeiroTests\MeuBarbeiroTests.csproj", "{7383B1E0-1531-4115-9AB7-A44760E65E32}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resources", "Resources", "{41FC5510-4A5D-418C-9D3F-A26168226F08}"
+	ProjectSection(SolutionItems) = preProject
+		C:\Users\Dev_DouglasValdo\Desktop\MeuBarbeiroEntities.drawio = C:\Users\Dev_DouglasValdo\Desktop\MeuBarbeiroEntities.drawio
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

@@ -1,10 +1,10 @@
 ﻿using System.Linq.Expressions;
-using Application.DBContext;
+using ApplicationStructure.DBContext;
 using Domain.Entities;
 using Domain.Repository;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Repositories;
+namespace ApplicationStructure.Repositories;
 
 public class ScheduleRepository : BaseRepository, IRepository<Schedule>
 {
@@ -48,18 +48,18 @@ public class ScheduleRepository : BaseRepository, IRepository<Schedule>
 
     public Schedule? Get(Expression<Func<Schedule, bool>> expression)
     {
-        var schedule = Context.Schedules.Include(s => s.Task).SingleOrDefault(expression);
+        var schedule = Context.Schedules.Include(s => s.ScheduleTask).SingleOrDefault(expression);
 
         return schedule;
     }
 
     public IList<Schedule> GetAll(Expression<Func<Schedule, bool>> expression)
     {
-        return Context.Schedules.Include(s => s.Task).Where(expression).ToList();
+        return Context.Schedules.Include(s => s.ScheduleTask).Where(expression).ToList();
     }
 
     public IList<Schedule> GetAll()
     {
-        return Context.Schedules.Include(s => s.Task).ToList();
+        return Context.Schedules.Include(s => s.ScheduleTask).ToList();
     }
 }

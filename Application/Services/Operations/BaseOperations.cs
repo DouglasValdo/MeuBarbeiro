@@ -1,6 +1,6 @@
 ﻿using Domain.Repository;
 
-namespace Application.Services.Operations;
+namespace ApplicationStructure.Services.Operations;
 
 public class BaseOperations<T> where T: class
 {

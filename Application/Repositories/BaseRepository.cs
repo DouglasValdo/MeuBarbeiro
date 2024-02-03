@@ -1,6 +1,6 @@
-﻿using Application.DBContext;
+﻿using ApplicationStructure.DBContext;
 
-namespace Application.Repositories;
+namespace ApplicationStructure.Repositories;
 
 public class BaseRepository
 {

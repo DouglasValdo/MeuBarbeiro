@@ -1,14 +1,17 @@
-﻿namespace Domain.Entities;
+﻿using System.ComponentModel.DataAnnotations;
 
-public class Task
+namespace Domain.Entities;
+
+public class ScheduleTask
 {
     public Guid Id { get; set; }
 
+    [MaxLength(500)]
     public string Name { get; set; } = null!;
 
     public double Price { get; set; }
 
-    public bool Available { get; set; }
+    public bool IsAvailable { get; set; }
 
     public bool? IsDeleted { get; set; }
 

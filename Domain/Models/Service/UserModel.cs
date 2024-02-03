@@ -1,4 +1,4 @@
-﻿namespace Domain.Services.Entities;
+﻿namespace Domain.Models.Service;
 
 public class UserModel
 {

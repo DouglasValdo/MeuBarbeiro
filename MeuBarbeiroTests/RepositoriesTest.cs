@@ -1,5 +1,5 @@
-using Application.DBContext;
-using Application.Repositories;
+using ApplicationStructure.DBContext;
+using ApplicationStructure.Repositories;
 using Domain.Entities;
 using Infrastructure.DBProvider;
 

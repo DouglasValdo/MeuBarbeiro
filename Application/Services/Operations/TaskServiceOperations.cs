@@ -1,15 +1,14 @@
-﻿using Application.Services.Operations;
+﻿using Domain.Common.Service;
+using Domain.Entities;
+using Domain.Interfaces.Services;
+using Domain.Models.Service;
 using Domain.Repository;
-using Domain.Services.Common;
-using Domain.Services.Entities;
-using Domain.Services.Interfaces;
-using Task = Domain.Entities.Task;
 
-namespace Application.Services.Operations;
+namespace ApplicationStructure.Services.Operations;
 
-public class TaskServiceOperations : BaseOperations<Task>, ITaskOperations<Task>
+public class TaskServiceOperations : BaseOperations<ScheduleTask>, ITaskOperations<ScheduleTask>
 {
-    public TaskServiceOperations(IRepository<Task> repository) : base(repository)
+    public TaskServiceOperations(IRepository<ScheduleTask> repository) : base(repository)
     {
     }
 
@@ -17,12 +16,12 @@ public class TaskServiceOperations : BaseOperations<Task>, ITaskOperations<Task>
     {
         try
         {
-            var newTaskType = new Task
+            var newTaskType = new ScheduleTask
             {
                 Id = Guid.NewGuid(),
                 Name = model.Name,
                 Price = model.Price,
-                Available = model.Available,
+                IsAvailable = model.Available,
                 IsDeleted = model.IsDeleted,
                 DurationInMinutes = model.DurationInMinutes
             };
@@ -62,11 +61,11 @@ public class TaskServiceOperations : BaseOperations<Task>, ITaskOperations<Task>
         }
     }
 
-    public OperationOutcome<IList<Task>> GetAll()
+    public OperationOutcome<IList<ScheduleTask>> GetAll()
     {
         try
         {
-            return new OperationOutcome<IList<Task>>
+            return new OperationOutcome<IList<ScheduleTask>>
             {
                 IsSucesseful = true,
                 Result = MyRepository.GetAll()
@@ -74,7 +73,7 @@ public class TaskServiceOperations : BaseOperations<Task>, ITaskOperations<Task>
         }
         catch (Exception e)
         {
-            return new OperationOutcome<IList<Task>>
+            return new OperationOutcome<IList<ScheduleTask>>
             {
                 IsSucesseful = false,
                 ErrorMessage = e.Message

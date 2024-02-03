@@ -57,9 +57,43 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="AathifMahir.Maui.MauiIcons.Fluent" Version="2.1.1" />
+        <PackageReference Include="AathifMahir.Maui.MauiIcons.Material" Version="2.1.1" />
+        <PackageReference Include="CommunityToolkit.Maui" Version="7.0.1" />
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
         <PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)"/>
         <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)"/>
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0"/>
+        <PackageReference Include="The49.Maui.BottomSheet" Version="8.0.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <MauiXaml Update="Controls\Pages\LoginPage.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
+      <MauiXaml Update="Controls\Pages\RegisterPage.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Controls\Pages\LoginPage.xaml.cs">
+        <DependentUpon>LoginTab.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Controls\Pages\RegisterPage.xaml.cs">
+        <DependentUpon>RegisterTab.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Application\Application.csproj" />
+      <ProjectReference Include="..\Domain\Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Platforms\Android\Resources\network_security_config.xml" />
     </ItemGroup>
 
 </Project>

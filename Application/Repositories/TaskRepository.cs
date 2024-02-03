@@ -1,41 +1,41 @@
 ﻿using System.Linq.Expressions;
-using Application.DBContext;
+using ApplicationStructure.DBContext;
+using Domain.Entities;
 using Domain.Repository;
-using Task = Domain.Entities.Task;
 
-namespace Application.Repositories;
+namespace ApplicationStructure.Repositories;
 
-public class TaskRepository : BaseRepository, IRepository<Task>
+public class TaskRepository : BaseRepository, IRepository<ScheduleTask>
 {
     public TaskRepository(MeuBarbeiroDbContext context) : base(context) { }
     
-    public void Add(Task toAdd)
+    public void Add(ScheduleTask toAdd)
     {
-        var exist = Context.Tasks.SingleOrDefault(u => u.Id == toAdd.Id);
+        var exist = Context.ScheduleTask.SingleOrDefault(u => u.Id == toAdd.Id);
 
         if (exist != null) return;
 
-        Context.Tasks.Add(toAdd);
+        Context.ScheduleTask.Add(toAdd);
 
         Context.SaveChanges();
     }
 
-    public void Update(Task newValue, Expression<Func<Task, bool>> expression)
+    public void Update(ScheduleTask newValue, Expression<Func<ScheduleTask, bool>> expression)
     {
-        var Task = Context.Tasks.SingleOrDefault(expression);
+        var Task = Context.ScheduleTask.SingleOrDefault(expression);
 
         if (Task == null) return;
 
         Task.Name       = newValue.Name;
         Task.Price      = newValue.Price;
-        Task.Available  = newValue.Available;
+        Task.IsAvailable  = newValue.IsAvailable;
 
         Context.SaveChanges();
     }
 
-    public void Remove(Expression<Func<Task, bool>> expression)
+    public void Remove(Expression<Func<ScheduleTask, bool>> expression)
     {
-        var Task = Context.Tasks.SingleOrDefault(expression);
+        var Task = Context.ScheduleTask.SingleOrDefault(expression);
 
         if (Task == null) return;
 
@@ -44,20 +44,20 @@ public class TaskRepository : BaseRepository, IRepository<Task>
         Context.SaveChanges();
     }
 
-    public Task? Get(Expression<Func<Task, bool>> expression)
+    public ScheduleTask? Get(Expression<Func<ScheduleTask, bool>> expression)
     {
-        var Task = Context.Tasks.SingleOrDefault(expression);
+        var Task = Context.ScheduleTask.SingleOrDefault(expression);
 
         return Task;
     }
 
-    public IList<Task> GetAll(Expression<Func<Task, bool>> expression)
+    public IList<ScheduleTask> GetAll(Expression<Func<ScheduleTask, bool>> expression)
     {
-        return Context.Tasks.Where(expression).ToList();
+        return Context.ScheduleTask.Where(expression).ToList();
     }
 
-    public IList<Task> GetAll()
+    public IList<ScheduleTask> GetAll()
     {
-        return Context.Tasks.ToList();
+        return Context.ScheduleTask.ToList();
     }
 }

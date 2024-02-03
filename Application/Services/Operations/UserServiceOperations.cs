@@ -1,24 +1,23 @@
-﻿using Application.Services.Operations;
+﻿using Domain.Common.Service;
 using Domain.Entities;
+using Domain.Interfaces.Services;
+using Domain.Models.Service;
 using Domain.Repository;
-using Domain.Services.Common;
-using Domain.Services.Entities;
-using Domain.Services.Interfaces;
 
-namespace Application.Services.Operations;
+namespace ApplicationStructure.Services.Operations;
 
 public class UserServiceOperations : BaseOperations<User>, IUserOperations<User>
 {
     public UserServiceOperations(IRepository<User> repository) : base(repository)
     {
     }
-    public OperationOutcome<User> GetByPhoneNumber(int phoneNumber)
+    public OperationOutcome<User?> GetByPhoneNumber(int phoneNumber)
     {
         try
         {
             var foundUser = MyRepository?.Get((u) => u.PhoneNumber == phoneNumber);
             
-            return new OperationOutcome<User>
+            return new OperationOutcome<User?>
             {
                 IsSucesseful = true,
                 Result = foundUser
@@ -26,17 +25,17 @@ public class UserServiceOperations : BaseOperations<User>, IUserOperations<User>
         }
         catch (Exception e)
         {
-            return new OperationOutcome<User> { IsSucesseful = false, ErrorMessage = e.Message };
+            return new OperationOutcome<User?> { IsSucesseful = false, ErrorMessage = e.Message };
         }
     }
 
-    public OperationOutcome<User> GetById(Guid userId)
+    public OperationOutcome<User?> GetById(Guid userId)
     {
         try
         {
             var foundUser = MyRepository?.Get((u) => u.Id == userId);
             
-            return new OperationOutcome<User>
+            return new OperationOutcome<User?>
             {
                 IsSucesseful = true,
                 Result = foundUser
@@ -44,7 +43,7 @@ public class UserServiceOperations : BaseOperations<User>, IUserOperations<User>
         }
         catch (Exception e)
         {
-            return new OperationOutcome<User> { IsSucesseful = false, ErrorMessage = e.Message };
+            return new OperationOutcome<User?> { IsSucesseful = false, ErrorMessage = e.Message };
         }
     }
 

@@ -1,9 +1,9 @@
 ﻿using System.Linq.Expressions;
-using Application.DBContext;
+using ApplicationStructure.DBContext;
 using Domain.Entities;
 using Domain.Repository;
 
-namespace Application.Repositories;
+namespace ApplicationStructure.Repositories;
 
 public class UserRepository : BaseRepository, IRepository<User>
 {

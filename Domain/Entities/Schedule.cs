@@ -13,11 +13,11 @@ public class Schedule
 
     public bool? IsDeleted { get; set; }
 
-    public Guid TaskId { get; set; }
+    public Guid ScheduleTaskId { get; set; }
 
     public bool? IsTerminated { get; set; }
 
-    public virtual Task Task { get; set; } = null!;
+    public virtual ScheduleTask ScheduleTask { get; set; } = null!;
 
     public virtual User User { get; set; } = null!;
 }

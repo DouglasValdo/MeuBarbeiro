@@ -1,4 +1,9 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using CommunityToolkit.Maui;
+using MauiIcons.Fluent;
+using MauiIcons.Material;
+using Microsoft.Extensions.Logging;
+using MobileUI.Objects.Extensions;
+using The49.Maui.BottomSheet;
 
 namespace MobileUI;
 
@@ -8,7 +13,13 @@ public static class MauiProgram
     {
         var builder = MauiApp.CreateBuilder();
         builder
+            .LoadViewsAndViewModels()
+            .LoadAppService()
             .UseMauiApp<App>()
+            .UseMauiCommunityToolkit()
+            .UseFluentMauiIcons()
+            .UseMaterialMauiIcons()
+            .UseBottomSheet()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

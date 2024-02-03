@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<controls:ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:controls="clr-namespace:Microsoft.Maui.Controls;assembly=Microsoft.Maui.Controls"
+                      xmlns:editors="clr-namespace:MobileUI.Controls.Editors"
+                      xmlns:viewmodels="clr-namespace:MobileUI.Objects.ViewModels"
+                      x:Class="MobileUI.Controls.Pages.LoginPage"
+                      Shell.NavBarIsVisible="False"
+                      x:DataType="viewmodels:LoginPageViewModel">
+    <controls:ContentPage.Content>
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="300" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <VerticalStackLayout Grid.Row="1">
+
+                <Border Stroke="{StaticResource Secondary}">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="5" />
+                    </Border.StrokeShape>
+                    <editors:BorderlessEntry Placeholder="Phone Number"
+                                             Text="{Binding UserPhoneNumber}"
+                                             Margin="10, 0, 0, 0"
+                                             Keyboard="Telephone" />
+                </Border>
+
+                <Border Stroke="{StaticResource Secondary}" StrokeThickness="1"
+                        Margin="0, 5">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="5" />
+                    </Border.StrokeShape>
+                    <editors:BorderlessEntry Placeholder="Password" IsPassword="True"
+                                             Margin="10, 0, 0, 0" />
+                </Border>
+
+                <Button Text="Log in" BackgroundColor="{StaticResource Secondary}"
+                        FontAttributes="Bold"
+                        CornerRadius="5"
+                        Margin="0, 5" Command="{Binding LoginCommand}" />
+
+                <Label Text="Create account." HorizontalTextAlignment="Center" Padding="1"
+                       TextDecorations="Underline" TextColor="{StaticResource Secondary}" FontSize="12">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoToRegisterCommand }" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </VerticalStackLayout>
+        </Grid>
+    </controls:ContentPage.Content>
+</controls:ContentPage>

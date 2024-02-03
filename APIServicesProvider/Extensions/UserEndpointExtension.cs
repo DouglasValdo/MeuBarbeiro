@@ -1,9 +1,9 @@
-﻿using Application.DBContext;
-using Application.Repositories;
-using Application.Services.Operations;
+﻿using ApplicationStructure.DBContext;
+using ApplicationStructure.Repositories;
+using ApplicationStructure.Services.Operations;
 using Domain.Entities;
+using Domain.Models.Service;
 using Domain.Repository;
-using Domain.Services.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ServicesProvider.Extensions;

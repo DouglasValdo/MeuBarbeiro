@@ -1,12 +1,12 @@
-﻿using Domain.Services.Common;
-using Domain.Services.Entities;
+﻿using Domain.Common.Service;
+using Domain.Models.Service;
 
-namespace Domain.Services.Interfaces;
+namespace Domain.Interfaces.Services;
 
 public interface IUserOperations<T>
 {
-    OperationOutcome<T> GetByPhoneNumber(int phoneNumber);
-    OperationOutcome<T> GetById(Guid userId);
+    OperationOutcome<T?> GetByPhoneNumber(int phoneNumber);
+    OperationOutcome<T?> GetById(Guid userId);
     OperationOutcome Add(UserModel model);
     OperationOutcome Delete(Guid? userId);
     OperationOutcome<IList<T>> GetAll();

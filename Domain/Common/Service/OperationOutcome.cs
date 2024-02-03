@@ -1,4 +1,4 @@
-﻿namespace Domain.Services.Common;
+﻿namespace Domain.Common.Service;
 
 public class OperationOutcome<T>
 {

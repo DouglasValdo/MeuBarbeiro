@@ -1,11 +1,11 @@
-﻿using Application.DBContext;
-using Application.Repositories;
-using Application.Services.Operations;
+﻿using ApplicationStructure.DBContext;
+using ApplicationStructure.Repositories;
+using ApplicationStructure.Services.Operations;
+using Domain.Entities;
+using Domain.Models.Service;
 using Domain.Repository;
-using Domain.Services.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OutputCaching;
-using Task = Domain.Entities.Task;
 
 namespace ServicesProvider.Extensions;
 
@@ -14,7 +14,7 @@ public static class TaskEndpointExtension
     public static IEndpointRouteBuilder
         MapTaskEndpoint(this WebApplication app, MeuBarbeiroDbContext dbContext)
     {
-        IRepository<Task> scheduleRepository = new TaskRepository(dbContext);
+        IRepository<ScheduleTask> scheduleRepository = new TaskRepository(dbContext);
 
         var TaskEndPointOperations = new TaskServiceOperations(scheduleRepository);
 

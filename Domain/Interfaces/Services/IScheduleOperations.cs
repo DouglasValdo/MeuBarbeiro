@@ -1,7 +1,7 @@
-﻿using Domain.Services.Common;
-using Domain.Services.Entities;
+﻿using Domain.Common.Service;
+using Domain.Models.Service;
 
-namespace Domain.Services.Interfaces;
+namespace Domain.Interfaces.Services;
 
 public interface IScheduleOperations<T>
 {

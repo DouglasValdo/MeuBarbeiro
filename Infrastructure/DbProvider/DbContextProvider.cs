@@ -1,4 +1,4 @@
-﻿using Application.DBContext;
+﻿using ApplicationStructure.DBContext;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.DBProvider;

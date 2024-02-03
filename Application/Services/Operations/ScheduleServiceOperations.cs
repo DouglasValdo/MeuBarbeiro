@@ -1,11 +1,10 @@
-﻿using Application.Services.Operations;
+﻿using Domain.Common.Service;
 using Domain.Entities;
+using Domain.Interfaces.Services;
+using Domain.Models.Service;
 using Domain.Repository;
-using Domain.Services.Common;
-using Domain.Services.Entities;
-using Domain.Services.Interfaces;
 
-namespace Application.Services.Operations;
+namespace ApplicationStructure.Services.Operations;
 
 public class ScheduleServiceOperations : BaseOperations<Schedule>, IScheduleOperations<Schedule>
 {
@@ -24,7 +23,7 @@ public class ScheduleServiceOperations : BaseOperations<Schedule>, IScheduleOper
                 IsDeleted = model.IsDeleted,
                 UserId = model.UserId,
                 Notes = model.Notes,
-                TaskId = model.TaskId,
+                ScheduleTaskId = model.TaskId,
                 TimeStamp = model.TimeStamp,
                 IsTerminated = model.IsTerminated
             };
