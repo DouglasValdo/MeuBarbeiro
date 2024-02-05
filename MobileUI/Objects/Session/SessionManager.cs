@@ -4,17 +4,17 @@ public class SessionManager
 {
     private const string LoggedUserKey = "LOGGEDUSERID";
     
-    public Guid? GetUser()
+    public async Task<Guid?> GetUser()
     {
-        var loggedUserId = SecureStorage.GetAsync(LoggedUserKey).Result;
+        var loggedUserId = await SecureStorage.GetAsync(LoggedUserKey);
 
         if (string.IsNullOrWhiteSpace(loggedUserId)) return null;
 
         return Guid.Parse(loggedUserId); 
     }
 
-    public void StoreUser(Guid userId)
+    public async Task StoreUser(Guid userId)
     {
-        SecureStorage.SetAsync(LoggedUserKey, userId.ToString());
+        await SecureStorage.SetAsync(LoggedUserKey, userId.ToString());
     }
 }

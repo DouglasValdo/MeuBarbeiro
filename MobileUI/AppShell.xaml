@@ -19,24 +19,29 @@
         ContentTemplate="{DataTemplate pages:LoginPage}"
         Route="LoginPage" />
     <ShellContent
-        Title="Register"
+        Title="OTPValidation"
+        ContentTemplate="{DataTemplate pages:OTPPage}"
+        Route="OTPPage" />
+    <ShellContent
+        Title="RegisterPage"
         ContentTemplate="{DataTemplate pages:RegisterPage}"
         Route="RegisterPage" />
     
     <TabBar>
         <Tab 
             Title="Schedule" 
-            Route="MainPage"
+            Route="HomeTab"
             Icon="{material:Material CalendarMonth}">
             <ShellContent ContentTemplate="{DataTemplate tabs:HomeTab}" />
         </Tab>
         <Tab 
             Title="Profile" 
-            Route="ProfilePage"
+            Route="ProfileTab"
             Icon="{fluent:Fluent PersonCircle12}">
             <ShellContent ContentTemplate="{DataTemplate tabs:ProfileTab}" />
         </Tab>
-        <Tab Title="Settings" Route="SettingsPage"
+        <Tab Title="Settings" 
+             Route="SettingsTab"
              Icon="{material:Material Settings}">
             <ShellContent ContentTemplate="{DataTemplate tabs:SettingsTab}" />
         </Tab>

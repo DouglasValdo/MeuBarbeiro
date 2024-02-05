@@ -2,16 +2,17 @@
 
 public static class AppApiHttpClient
 {
-    private static HttpClient _httpClient;
+    private static HttpClient? _httpClient;
 
     public static HttpClient GetClient()
     {
         const string BaseAddress = "http://nhabarberu.cloud/api/";
+
+        if (_httpClient != null) return _httpClient;
         
-        _httpClient ??= new HttpClient(GetPlatformMessageHandler());
+        _httpClient = new HttpClient(GetPlatformMessageHandler());
 
         _httpClient.BaseAddress = new Uri(BaseAddress);
-
         return _httpClient;
     }
 

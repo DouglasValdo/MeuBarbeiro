@@ -15,11 +15,11 @@ public class ScheduleEndpoint : EndpointsBase, IScheduleService
     {
     }
 
-    public async Task<OperationOutcome<Schedule?>?> GetUserScheduleAsync(Guid userId)
+    public async Task<OperationOutcome<List<Schedule>>?> GetUserSchedulesAsync(Guid userId)
     {
-        var responseMessage = await Client.GetAsync($"{ENDPOINT}GetUserSchedule/{userId}");
+        var responseMessage = await Client.GetAsync($"{ENDPOINT}GetUserSchedules/{userId}");
         
-        var result    = await responseMessage.Content.GetFromJsonAsync<OperationOutcome<Schedule?>>();
+        var result    = await responseMessage.Content.GetFromJsonAsync<OperationOutcome<List<Schedule>>?>();
         
         return result;
     }

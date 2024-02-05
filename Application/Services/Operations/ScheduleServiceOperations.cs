@@ -46,20 +46,20 @@ public class ScheduleServiceOperations : BaseOperations<Schedule>, IScheduleOper
         }
     }
 
-    public OperationOutcome<Schedule> GetUserSchedule(Guid userId)
+    public OperationOutcome<List<Schedule>>? GetUserSchedule(Guid userId)
     {
         try
         {
             var schedule = MyRepository
-                .Get((s)
+                .GetAll((s)
                     => s.UserId == userId && s.IsDeleted == false && 
-                    (s.IsTerminated == null || s.IsTerminated == false));
+                       (s.IsTerminated == null || s.IsTerminated == false)).ToList();
             
-            return new OperationOutcome<Schedule> { IsSucesseful = true, Result = schedule};
+            return new OperationOutcome<List<Schedule>> { IsSucesseful = true, Result = schedule};
         }
         catch (Exception e)
         {
-            return new OperationOutcome<Schedule>
+            return new OperationOutcome<List<Schedule>>
             {
                 IsSucesseful = false,
                 ErrorMessage = e.Message

@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Domain.Common.Service;
+using Microsoft.Extensions.Logging;
+using MobileUI.Objects.ViewModels;
 
 namespace MobileUI.Controls.Tabs;
 
-public partial class HomeTab : ContentPage
+public partial class HomeTab : BasePage
 {
-    public HomeTab()
+    public HomeTab(IApplicationService appService, ILogger<HomeTab> logger):base(appService)
     {
         InitializeComponent();
+        BindingContext = new HomeTabViewModel(appService, logger);
     }
 }

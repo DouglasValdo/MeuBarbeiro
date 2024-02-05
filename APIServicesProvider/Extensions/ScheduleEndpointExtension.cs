@@ -29,7 +29,7 @@ public static class ScheduleEndpointExtension
         scheduleGroupedEndpoint.MapDelete("/DeleteSchedule/{scheduleId:guid}", (Guid scheduleId)
             => scheduleEndPointOperations.Delete(scheduleId));
 
-        scheduleGroupedEndpoint.MapGet("/GetUserSchedule/{userId:guid}", (Guid userId)
+        scheduleGroupedEndpoint.MapGet("/GetUserSchedules/{userId:guid}", (Guid userId)
             => scheduleEndPointOperations.GetUserSchedule(userId));
 
         scheduleGroupedEndpoint.MapGet("/GetAllUserTerminatedSchedules/{userId:guid}", (Guid userId)

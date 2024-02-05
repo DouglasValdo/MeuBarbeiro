@@ -6,7 +6,7 @@ namespace MobileUI.Objects.Helpers;
 
 public static class ApplicationHelper
 {
-    public static async Task DisplayError(string errorMessage)
+    public static async Task DisplayMessage(string errorMessage)
     {
         var popup = new AppPopUp
         {

@@ -20,6 +20,7 @@ public static class MauiProgram
             .UseFluentMauiIcons()
             .UseMaterialMauiIcons()
             .UseBottomSheet()
+            .LoadSerilog()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

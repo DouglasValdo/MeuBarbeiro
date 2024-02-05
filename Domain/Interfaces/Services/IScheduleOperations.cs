@@ -6,7 +6,7 @@ namespace Domain.Interfaces.Services;
 public interface IScheduleOperations<T>
 {
     OperationOutcome Add(ScheduleModel model);
-    OperationOutcome<T> GetUserSchedule(Guid userId);
+    OperationOutcome<List<T>>? GetUserSchedule(Guid userId);
     OperationOutcome Delete(Guid? scheduleId);
     OperationOutcome<IList<T>> GetAll();
     OperationOutcome Update(Guid? scheduleId, ScheduleModel model);

@@ -1,9 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<pages:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:MobileUI.Controls"
+             xmlns:models="clr-namespace:MobileUI.Objects.ViewModels"
+             xmlns:controls="clr-namespace:MobileUI.Controls.Custom"
+             x:DataType="models:HomeTabViewModel"
              x:Class="MobileUI.Controls.Tabs.HomeTab">
     <ContentPage.Content>
-        
+        <ListView ItemsSource="{Binding UserActiveSchedules}" SelectionMode="None" Margin="10"
+                  HasUnevenRows="True" IsPullToRefreshEnabled="True" SeparatorVisibility="None">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Border Stroke="{StaticResource  Gray200}" Margin="0, 2">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="5" />
+                            </Border.StrokeShape>
+                            <controls:ScheduleDisplay 
+                                BindingContext="{Binding }" Margin="10"/>
+                        </Border>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </ContentPage.Content>
-</ContentPage>
+</pages:BasePage>

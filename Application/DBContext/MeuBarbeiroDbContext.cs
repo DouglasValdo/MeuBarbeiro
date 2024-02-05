@@ -7,7 +7,7 @@ public class MeuBarbeiroDbContext : DbContext
 {
     public MeuBarbeiroDbContext(DbContextOptions options) : base(options){}
         
-    public virtual DbSet<Schedule> Schedules { get; set; }
+    public virtual DbSet<Schedule> Schedule { get; set; }
 
     public virtual DbSet<ScheduleTask> ScheduleTask { get; set; }
 

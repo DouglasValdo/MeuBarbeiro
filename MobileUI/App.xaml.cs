@@ -12,6 +12,7 @@ public partial class App : Application
 
         MainPage = new AppShell();
         
+        //Register application Routes
         MapRoutes();
         
         //Add BorderlessEntry Mappings
@@ -22,8 +23,10 @@ public partial class App : Application
     {
         Routing.RegisterRoute(nameof(LoginPage),     typeof(LoginPage));
         Routing.RegisterRoute(nameof(RegisterPage),  typeof(RegisterPage));
+        Routing.RegisterRoute(nameof(OTPPage),       typeof(OTPPage));
         Routing.RegisterRoute(nameof(HomeTab),       typeof(HomeTab));
         Routing.RegisterRoute(nameof(SettingsTab),   typeof(SettingsTab));
         Routing.RegisterRoute(nameof(ProfileTab),    typeof(ProfileTab));
     }
+
 }

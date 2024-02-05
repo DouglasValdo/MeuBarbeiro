@@ -15,6 +15,8 @@ public class UserEndpoint : EndpointsBase, IUserService
     public async Task<OperationOutcome<User?>?> GetUserByPhoneNumberAsync(string phoneNumber)
     {
         var responseMessage = await Client.GetAsync($"{ENDPOINT}GetUserByPhoneNumber/{phoneNumber}");
+
+        responseMessage.EnsureSuccessStatusCode();
         
         var result    = await responseMessage.Content.GetFromJsonAsync<OperationOutcome<User?>>();
         
@@ -24,6 +26,8 @@ public class UserEndpoint : EndpointsBase, IUserService
     public async Task<OperationOutcome<User?>?> GetUserByIdAsync(Guid userId)
     {
         var responseMessage = await Client.GetAsync($"{ENDPOINT}GetUserById/{userId}");
+        
+        responseMessage.EnsureSuccessStatusCode();
         
         var result    = await responseMessage.Content.GetFromJsonAsync<OperationOutcome<User?>>();
         
