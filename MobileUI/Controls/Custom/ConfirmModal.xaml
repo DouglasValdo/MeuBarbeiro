@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:viewmodel="clr-namespace:MobileUI.Objects.ViewModels"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               x:Class="MobileUI.Controls.Custom.ConfirmModal"
+               x:DataType="viewmodel:ConfirmModalViewModel"
+               CanBeDismissedByTappingOutsideOfPopup="True" 
+               Color="Transparent" >
+    <Border
+        Padding="10"
+        Margin="10"
+        Stroke="{StaticResource Primary}"
+        BackgroundColor="{StaticResource Primary}" >
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="10" />
+        </Border.StrokeShape>
+        <Grid Padding="10">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <VerticalStackLayout >
+                <Label Text="{ Binding Title}" HorizontalTextAlignment="Center" Margin="0, 0, 0,10" 
+                       FontAttributes="Bold" HorizontalOptions="Center" FontSize="15"/>
+                <!-- <BoxView HeightRequest="1" Color="{StaticResource Gray500}"/> -->
+            </VerticalStackLayout>
+            <StackLayout Grid.Row="1">
+                <Label Text="{Binding Message}" HorizontalTextAlignment="Center" Margin="0, 10"
+                       FontSize="12" HorizontalOptions="Center" FontAttributes="Bold"/>
+            </StackLayout>
+            <HorizontalStackLayout Grid.Row="2" Margin="0, 10, 0, 0" >
+                <Button Text="Confirm" Command="{Binding ConfirmCommand}"  
+                        Margin="5, 0" TextColor="Green" StyleClass="TextButton"
+                        FontAttributes="Bold"/>
+                <Button Text="Cancel" Command="{Binding CancelCommand}" 
+                        FontAttributes="Bold"
+                        Margin="5, 0" TextColor="{StaticResource Secondary}" StyleClass="TextButton"/>
+            </HorizontalStackLayout>
+        </Grid>
+    </Border>
+</toolkit:Popup>

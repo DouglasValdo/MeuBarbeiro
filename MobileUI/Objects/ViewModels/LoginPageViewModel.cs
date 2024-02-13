@@ -1,30 +1,34 @@
 ﻿using System.Globalization;
+using System.Text.RegularExpressions;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Domain.Common.Service;
+using Domain.Entities;
+using Domain.Models.Service;
 using Microsoft.Extensions.Logging;
 using MobileUI.Objects.Helpers;
 using MobileUI.Objects.Session;
+
 // ReSharper disable All
 
 namespace MobileUI.Objects.ViewModels;
 
 public partial class LoginPageViewModel : ViewModelBase
 {
-    
     [ObservableProperty] private string _userPhoneNumber = string.Empty;
     public ICommand LoginCommand { get; }
-    public LoginPageViewModel(IApplicationService appServiceProvider,ILogger logger ):base(appServiceProvider, logger)
+
+    public LoginPageViewModel(IApplicationService appServiceProvider, ILogger logger) : base(appServiceProvider, logger)
     {
-        LoginCommand = new RelayCommand(Login);
+        LoginCommand = new AsyncRelayCommand(Login);
     }
 
-    private async void Login()
+    private async Task Login()
     {
         if (string.IsNullOrWhiteSpace(UserPhoneNumber)) return;
 
-        var isValidPhoneNumber = IsValidUserPhoneNumber(UserPhoneNumber);
+        var isValidPhoneNumber = ApplicationHelper.IsValidUserPhoneNumber(UserPhoneNumber);
 
         if (isValidPhoneNumber == false)
         {
@@ -47,28 +51,51 @@ public partial class LoginPageViewModel : ViewModelBase
                 return;
             }
 
-            //unable to log the user. probably wrong credentials or user not found
-            if (serviceOutcome.IsSucesseful && serviceOutcome.Result == null)
+            if (serviceOutcome.IsSucesseful)
             {
-                var navToRegisterParam = new ShellNavigationQueryParameters { { "GoToPage", "//RegisterPage" } };
-                await Shell.Current.GoToAsync("//OTPPage", navToRegisterParam);    
-                return;
+                //unable to log the user. user not found
+                // in that case we want to register the current user
+                if (serviceOutcome.Result == null)
+                {
+                    var userToRegister = new UserModel
+                    {
+                        PhoneNumber = int.Parse(UserPhoneNumber),
+                        IsDeleted =false
+                    };
+                    
+                    var navToRegisterParam = new ShellNavigationQueryParameters
+                    {
+                        { "GoToPage", "//RegisterPage" },
+                        {"UserToRegister", userToRegister}
+                    };
+                    await Shell.Current.GoToAsync("//OTPPage", navToRegisterParam);
+                }
+                else
+                {
+                    //store user in the app current session
+                    await new SessionManager().StoreUser(serviceOutcome.Result.Id);
+                    //navigate user to the home page and register infos in session for the current user
+                    var navToHomeParam = new ShellNavigationQueryParameters
+                    {
+                        { "GoToPage", "//HomeTab" }
+                    };
+                    await Shell.Current.GoToAsync("//OTPPage", navToHomeParam);
+                }
             }
+            else
+            {
+                Logger.Log(LogLevel.Information, 
+                    "Unable to get user from service. Error: {message}", serviceOutcome.ErrorMessage);
 
-            //store user in the app current session
-            await new SessionManager().StoreUser(serviceOutcome.Result.Id);
-            //navigate user to the home page and register infos in session for the current user
-            var navToHomeParam = new ShellNavigationQueryParameters { { "GoToPage", "//HomeTab" } };
-            await Shell.Current.GoToAsync("//OTPPage", navToHomeParam);
-
+                await ApplicationHelper.DisplayMessage("Some error has occured in login.");    
+            }
         }
         catch (HttpRequestException serviceException)
         {
             //log to database what happen
             //display some information to the user
-            Logger.Log(LogLevel.Error, serviceException, "Service request to log in throws error.");
-            
-            await ApplicationHelper.DisplayMessage("Check your internet connection.");
+            Logger.Log(LogLevel.Error, serviceException, "Get UserFromPhoneNumber request to login throws error.");
+            await ApplicationHelper.DisplayHttpRequestExceptionMessage(serviceException);
         }
         catch (Exception e)
         {
@@ -77,13 +104,5 @@ public partial class LoginPageViewModel : ViewModelBase
             Logger.Log(LogLevel.Error, e, "Login page throws unknown error.");
             await ApplicationHelper.DisplayMessage("Some error has occured.");
         }
-    }
-
-    private static bool IsValidUserPhoneNumber(string userPhoneNumber)
-    {
-        var isValidInt = int.TryParse(userPhoneNumber, 
-            NumberStyles.Number, CultureInfo.InvariantCulture, out _);
-
-        return isValidInt;
     }
 }

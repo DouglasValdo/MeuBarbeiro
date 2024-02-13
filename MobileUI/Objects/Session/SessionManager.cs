@@ -4,7 +4,7 @@ public class SessionManager
 {
     private const string LoggedUserKey = "LOGGEDUSERID";
     
-    public async Task<Guid?> GetUser()
+    public async Task<Guid?> GetCurrentUser()
     {
         var loggedUserId = await SecureStorage.GetAsync(LoggedUserKey);
 

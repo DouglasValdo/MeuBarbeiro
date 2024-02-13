@@ -1,28 +1,80 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <pages:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:pages="clr-namespace:MobileUI.Controls"
-             xmlns:models="clr-namespace:MobileUI.Objects.ViewModels"
-             xmlns:controls="clr-namespace:MobileUI.Controls.Custom"
-             x:DataType="models:HomeTabViewModel"
-             x:Class="MobileUI.Controls.Tabs.HomeTab">
-    <ContentPage.Content>
-        <ListView ItemsSource="{Binding UserActiveSchedules}" SelectionMode="None" Margin="10"
-                  HasUnevenRows="True" IsPullToRefreshEnabled="True" SeparatorVisibility="None">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <Border Stroke="{StaticResource  Gray200}" Margin="0, 2">
-                            <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="5" />
-                            </Border.StrokeShape>
-                            <controls:ScheduleDisplay 
-                                BindingContext="{Binding }" Margin="10"/>
-                        </Border>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </ContentPage.Content>
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:pages="clr-namespace:MobileUI.Controls"
+                xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui"
+                xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+                xmlns:models="clr-namespace:MobileUI.Objects.ViewModels"
+                xmlns:controls="clr-namespace:MobileUI.Controls.Custom"
+                x:DataType="models:HomeTabViewModel"
+                x:Class="MobileUI.Controls.Tabs.HomeTab">
+
+    <Grid>
+        <!-- container of tabs -->
+        <VerticalStackLayout IsVisible="{Binding IsNoScheduleVisible}" HorizontalOptions="Fill"
+                             Margin="10" Padding="10" Opacity=".8">
+            <!-- images that show no schedules -->
+            <Image Margin="20"
+                   Source="no_schedule" />
+            <!-- Label with text no schedules -->
+            <Label Text="No Schedule" HorizontalTextAlignment="Center" FontAttributes="Bold"
+                   TextColor="{StaticResource Secondary}"
+                   HorizontalOptions="Center" FontSize="30" />
+        </VerticalStackLayout>
+        <RefreshView IsRefreshing="{Binding IsScheduleRefreshing}"
+                     Command="{Binding GetUpdateSchedulesCommand}" Margin="10">
+            <!-- ListView with the schedules -->
+            <ListView ItemsSource="{Binding UserActiveSchedules}"
+                      SelectionMode="None" HasUnevenRows="True"
+                      IsPullToRefreshEnabled="False" SeparatorVisibility="None"
+                      ItemTapped="ListView_OnItemTapped">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Border Stroke="{StaticResource  Gray200}" Margin="0, 2"
+                                    BackgroundColor="White">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="5" />
+                                </Border.StrokeShape>
+                                <controls:ScheduleDisplay
+                                    BindingContext="{Binding }" Margin="10" />
+                            </Border>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </RefreshView>
+    </Grid>
+
+    <uranium:UraniumContentPage.Attachments>
+        <material:BottomSheetView BackgroundColor="{StaticResource Secondary}"
+                                  IsPresented="{Binding IsBottomSheetPresented}"
+                                  IsVisible="{Binding IsBottomSheetPresented}"
+                                  HorizontalOptions="Fill"
+                                  StrokeThickness="0">
+            <material:BottomSheetView.StrokeShape>
+                <RoundRectangle CornerRadius="10, 10, 0, 0" StrokeThickness="0" />
+            </material:BottomSheetView.StrokeShape>
+            <material:BottomSheetView.Body>
+                <VerticalStackLayout Margin="20">
+                    <Button Text="Editar " StyleClass="TextButton" CornerRadius="10">
+                        <Button.ImageSource>
+                            <FontImageSource FontFamily="MaterialRegular"
+                                             Glyph="{x:Static uranium:MaterialRegular.Edit}"
+                                             Size="20" />
+                        </Button.ImageSource>
+                    </Button>
+                    <Button Text="Apagar" StyleClass="TextButton" CornerRadius="10"
+                            Command="{Binding DeleteScheduleCommand}">
+                        <Button.ImageSource>
+                            <FontImageSource FontFamily="MaterialRegular"
+                                             Glyph="{x:Static uranium:MaterialRegular.Delete}"
+                                             FontAutoScalingEnabled="True" Size="20" />
+                        </Button.ImageSource>
+                    </Button>
+                </VerticalStackLayout>
+            </material:BottomSheetView.Body>
+        </material:BottomSheetView>
+    </uranium:UraniumContentPage.Attachments>
 </pages:BasePage>

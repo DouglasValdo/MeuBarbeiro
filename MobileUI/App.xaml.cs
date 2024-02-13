@@ -14,7 +14,6 @@ public partial class App : Application
         
         //Register application Routes
         MapRoutes();
-        
         //Add BorderlessEntry Mappings
         BorderlessEntryHandler.AppendMapping();
     }
@@ -27,6 +26,7 @@ public partial class App : Application
         Routing.RegisterRoute(nameof(HomeTab),       typeof(HomeTab));
         Routing.RegisterRoute(nameof(SettingsTab),   typeof(SettingsTab));
         Routing.RegisterRoute(nameof(ProfileTab),    typeof(ProfileTab));
+        Routing.RegisterRoute(nameof(ScheduleEditorPage),    typeof(ScheduleEditorPage));
     }
 
 }

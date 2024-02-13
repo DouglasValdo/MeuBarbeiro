@@ -20,10 +20,10 @@ public static class TaskEndpointExtension
 
         var TaskGroupedEndpoint = app.MapGroup("/api/Task").WithTags("Task");
         
-        TaskGroupedEndpoint.MapPost("/AddTask/{model}", ([FromBody] TaskModel model)
+        TaskGroupedEndpoint.MapPost("/AddTask", ([FromBody] TaskModel model)
             => TaskEndPointOperations.Add(model));
         
-        TaskGroupedEndpoint.MapPut("/UpdateTask/{TaskId:guid}/{model}", 
+        TaskGroupedEndpoint.MapPut("/UpdateTask/{TaskId:guid}", 
             (Guid TaskId, [FromBody] TaskModel model)
                 => TaskEndPointOperations.Update(TaskId, model));
         

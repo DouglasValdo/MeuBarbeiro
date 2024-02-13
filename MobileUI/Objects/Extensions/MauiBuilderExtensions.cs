@@ -7,6 +7,7 @@ using MobileUI.Controls.Pages;
 using MobileUI.Controls.Tabs;
 using MobileUI.Objects.ViewModels;
 using MobileUI.Service;
+using UraniumUI;
 
 namespace MobileUI.Objects.Extensions;
 
@@ -18,6 +19,8 @@ public static class MauiBuilderExtensions
             .AddTransient<IApplicationService>((s) 
                 => new ApplicationServiceEndpoints(AppApiHttpClient.GetClient()));
         
+        builder.Services.AddMopupsDialogs();
+        
         return builder;
     }
     
@@ -28,6 +31,8 @@ public static class MauiBuilderExtensions
         builder.Services.AddScoped<RegisterPageViewModel>();
         builder.Services.AddTransient<RegisterPage>();
         builder.Services.AddScoped<HomeTab>();
+        builder.Services.AddTransient<HomeTabViewModel>();
+        builder.Services.AddScoped<ScheduleEditorPage>();
         builder.Services.AddTransient<HomeTabViewModel>();
         
         return builder;

@@ -5,6 +5,7 @@ using Domain.Entities;
 using Domain.Models.Service;
 using Domain.Repository;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OutputCaching;
 
 namespace ServicesProvider.Extensions;
 
@@ -19,14 +20,14 @@ public static class UserEndpointExtension
 
         var userGroupedEndpoint = app.MapGroup("/api/User").WithTags("User");
 
-        userGroupedEndpoint.MapPost("/AddUser/{model}", ([FromBody] UserModel model)
+        userGroupedEndpoint.MapPost("/AddUser", ([FromBody] UserModel model)
             => userEndPointOperations.Add(model));
         
-        userGroupedEndpoint.MapPut("/UpdateUser/{userId:guid}/{model}", (Guid userId, [FromBody] UserModel model)
+        userGroupedEndpoint.MapPut("/UpdateUser/{userId:guid}", (Guid userId, [FromBody] UserModel model)
             => userEndPointOperations.Update(userId, model));
         
-        userGroupedEndpoint.MapDelete("/DeleteUser/{userId:guid}", (Guid userId)
-            => userEndPointOperations.Delete(userId));
+        userGroupedEndpoint.MapDelete("/DeleteUser/{userId:guid}",(Guid userId)
+            => userEndPointOperations.Delete(userId)).CacheOutput(p => p.NoCache());
 
         userGroupedEndpoint.MapGet("/GetUserByPhoneNumber/{phoneNumber:int}", (int phoneNumber)
             => userEndPointOperations.GetByPhoneNumber(phoneNumber));

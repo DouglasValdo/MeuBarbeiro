@@ -4,8 +4,8 @@
                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                xmlns:viewmodels="clr-namespace:MobileUI.Objects.ViewModels"
-               x:DataType="viewmodels:AppPopUpViewModel"
-               x:Class="MobileUI.Controls.Custom.AppPopUp" Color="Transparent">
+               x:DataType="viewmodels:AppModalViewModel"
+               x:Class="MobileUI.Controls.Custom.AppModal" Color="Transparent">
     <HorizontalStackLayout>
         <Frame
             CornerRadius ="5"

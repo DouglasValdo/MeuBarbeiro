@@ -19,10 +19,10 @@ public static class ScheduleEndpointExtension
 
         var scheduleGroupedEndpoint = app.MapGroup("/api/Schedule").WithTags("Schedule");
         
-        scheduleGroupedEndpoint.MapPost("/AddSchedule/{model}", ([FromBody] ScheduleModel model)
+        scheduleGroupedEndpoint.MapPost("/AddSchedule", ([FromBody] ScheduleModel model)
             => scheduleEndPointOperations.Add(model));
         
-        scheduleGroupedEndpoint.MapPut("/UpdateSchedule/{scheduleId:guid}/{model}", 
+        scheduleGroupedEndpoint.MapPut("/UpdateSchedule/{scheduleId:guid}", 
             (Guid scheduleId, [FromBody] ScheduleModel model)
                 => scheduleEndPointOperations.Update(scheduleId, model));
         

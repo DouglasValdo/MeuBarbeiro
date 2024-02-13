@@ -3,8 +3,8 @@
     x:Class="MobileUI.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:fluent="clr-namespace:MauiIcons.Fluent;assembly=MauiIcons.Fluent"
-    xmlns:material="clr-namespace:MauiIcons.Material;assembly=MauiIcons.Material"
+    xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui"
+    xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
     xmlns:pages="clr-namespace:MobileUI.Controls.Pages"
     xmlns:tabs="clr-namespace:MobileUI.Controls.Tabs"
     FlyoutBehavior="Disabled"
@@ -31,18 +31,21 @@
         <Tab 
             Title="Schedule" 
             Route="HomeTab"
-            Icon="{material:Material CalendarMonth}">
+            Icon="{FontImageSource FontFamily=MaterialRegular, 
+                                        Glyph={x:Static uranium:MaterialRegular.Calendar_month}}">
             <ShellContent ContentTemplate="{DataTemplate tabs:HomeTab}" />
         </Tab>
         <Tab 
             Title="Profile" 
             Route="ProfileTab"
-            Icon="{fluent:Fluent PersonCircle12}">
+            Icon="{FontImageSource FontFamily=MaterialRegular, 
+                                        Glyph={x:Static uranium:MaterialRegular.Person}}">
             <ShellContent ContentTemplate="{DataTemplate tabs:ProfileTab}" />
         </Tab>
         <Tab Title="Settings" 
              Route="SettingsTab"
-             Icon="{material:Material Settings}">
+             Icon="{FontImageSource FontFamily=MaterialRegular, 
+                                        Glyph={x:Static uranium:MaterialRegular.Settings}}">
             <ShellContent ContentTemplate="{DataTemplate tabs:SettingsTab}" />
         </Tab>
     </TabBar>

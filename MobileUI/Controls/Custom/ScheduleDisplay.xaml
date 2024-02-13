@@ -7,26 +7,25 @@
              x:Class="MobileUI.Controls.Custom.ScheduleDisplay" BackgroundColor="Transparent" >
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="280" />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-
-        <StackLayout Grid.RowSpan="2">
-            <Label Text="{Binding ScheduleTask.Name}" FontSize="18" 
-                   FontAttributes="Bold" TextColor="{StaticResource Gray600 }"/>
-        </StackLayout>
-        <StackLayout Grid.RowSpan="2" Grid.Column="1" Grid.Row="0">
-            <Label Text="{Binding ScheduleTask.Price, StringFormat='{0}€'}" 
-                   HorizontalTextAlignment="Center" VerticalTextAlignment="End" FontSize="30"
-                   FontAttributes="Bold" TextColor="Black" Padding="0, 5, 0, 0"/>
-        </StackLayout>
-        <StackLayout Grid.Column="0" Grid.Row="1">
+        <StackLayout>
             <Label Text="{Binding TimeStamp, 
-                            StringFormat='{0:MM-dd-yyyy HH:mm}'}"  FontAttributes="Bold"/>
+                            StringFormat='{0:MM-dd-yyyy HH:mm}'}"  FontAttributes="Bold"
+                   FontSize="10"/>
+        </StackLayout>
+        <StackLayout Grid.Row="1">
+            <Label Text="{Binding ScheduleTask.Name}" FontSize="20"
+                   FontFamily="OpenSansSemi-bold"
+                    TextColor="{StaticResource Gray600}"/>
+        </StackLayout>
+        <StackLayout  Grid.Row="2">
+            <Label Text="{Binding ScheduleTask.Price, StringFormat='{0}€'}" 
+                   HorizontalTextAlignment="Center" VerticalTextAlignment="End" FontSize="20"
+                   FontAttributes="Bold" TextColor="{StaticResource Gray600}" Padding="0, 5, 0, 0"
+                   HorizontalOptions="End"/>
         </StackLayout>
     </Grid>
 </ContentView>

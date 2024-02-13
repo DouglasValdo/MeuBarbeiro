@@ -1,9 +1,12 @@
 ﻿using CommunityToolkit.Maui;
-using MauiIcons.Fluent;
-using MauiIcons.Material;
 using Microsoft.Extensions.Logging;
+#if ANDROID
+using MobileUI.Platforms.Android.Handlers;
+#endif
 using MobileUI.Objects.Extensions;
-using The49.Maui.BottomSheet;
+
+using Mopups.Hosting;
+using UraniumUI;
 
 namespace MobileUI;
 
@@ -17,15 +20,27 @@ public static class MauiProgram
             .LoadAppService()
             .UseMauiApp<App>()
             .UseMauiCommunityToolkit()
-            .UseFluentMauiIcons()
-            .UseMaterialMauiIcons()
-            .UseBottomSheet()
+            .UseUraniumUI()
+            .UseUraniumUIMaterial()
+            .UseUraniumUIBlurs()
             .LoadSerilog()
+            .ConfigureMopups()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemi-bold");
+                fonts.AddFontAwesomeIconFonts();
+                fonts.AddMaterialIconFonts();
             });
+        
+        //This is necessary because .net8 is positioning the refresh indicator in the wrong location
+        //with this code we modifying the refreshing position 
+        builder.ConfigureMauiHandlers(collections =>
+        {
+#if ANDROID
+            collections.AddHandler(typeof(RefreshView), typeof(RefreshViewCustomHandler));
+#endif
+        });
 
 #if DEBUG
         builder.Logging.AddDebug();

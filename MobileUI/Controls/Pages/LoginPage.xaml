@@ -2,9 +2,10 @@
 
 <pages:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                xmlns:editors="clr-namespace:MobileUI.Controls.Editors"
+                xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
                 xmlns:viewmodels="clr-namespace:MobileUI.Objects.ViewModels"
                 xmlns:pages="clr-namespace:MobileUI.Controls"
+                xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui"
                 x:Class="MobileUI.Controls.Pages.LoginPage"
                 Shell.NavBarIsVisible="False"
                 x:DataType="viewmodels:LoginPageViewModel">
@@ -16,8 +17,8 @@
                 <RowDefinition Height="250" />
             </Grid.RowDefinitions>
 
-            <Border Grid.Row="1" 
-                    Stroke="{StaticResource Primary}" 
+            <Border Grid.Row="1"
+                    Stroke="{StaticResource Primary}"
                     BackgroundColor="{StaticResource Primary}">
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="20, 20, 0, 0" />
@@ -25,20 +26,17 @@
 
                 <VerticalStackLayout VerticalOptions="Start" Margin="10, 0"
                                      HorizontalOptions="Fill" Padding="0, 10">
-                    <Label Text="Bem Vindo a tua Barbearia"  
-                           FontSize="20" Margin="0, 10, 0, 40" 
-                           HorizontalTextAlignment="Center" TextColor="{StaticResource Secondary}"/>
-                    
-                    <Border Stroke="{StaticResource Secondary}">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="5" />
-                        </Border.StrokeShape>
-                        <editors:BorderlessEntry Placeholder="Phone Number"
-                                                 Text="{Binding UserPhoneNumber}"
-                                                 Margin="10, 0, 0, 0"
-                                                 HeightRequest="50"
-                                                 Keyboard="Telephone" />
-                    </Border>
+                    <Label Text="Bem Vindo a tua Barbearia"
+                           FontSize="20" Margin="0, 10, 0, 40"
+                           HorizontalTextAlignment="Center" TextColor="{StaticResource Secondary}" />
+
+                    <material:TextField Title="Phone Number"
+                                        Text="{Binding UserPhoneNumber}"
+                                        AccentColor="{StaticResource Secondary}"
+                                        HeightRequest="50"
+                                        Keyboard="Telephone"
+                                        Icon="{FontImageSource FontFamily=MaterialRegular, 
+                                        Glyph={x:Static uranium:MaterialRegular.Phone}}"/>
 
                     <Button Text="Log in" BackgroundColor="{StaticResource Secondary}"
                             FontAttributes="Bold"

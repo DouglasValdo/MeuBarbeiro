@@ -6,13 +6,13 @@ public static class AppApiHttpClient
 
     public static HttpClient GetClient()
     {
-        const string BaseAddress = "http://nhabarberu.cloud/api/";
+        const string baseAddress = "http" + "://nhabarberu.cloud/api/";
 
         if (_httpClient != null) return _httpClient;
         
         _httpClient = new HttpClient(GetPlatformMessageHandler());
 
-        _httpClient.BaseAddress = new Uri(BaseAddress);
+        _httpClient.BaseAddress = new Uri(baseAddress);
         return _httpClient;
     }
 

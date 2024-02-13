@@ -2,9 +2,9 @@
 
 namespace MobileUI.Controls.Custom;
 
-public partial class AppPopUp: Popup
+public partial class AppModal: Popup
 {
-    public AppPopUp()
+    public AppModal()
     {
         InitializeComponent();
     }
