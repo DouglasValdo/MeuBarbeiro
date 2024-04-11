@@ -4,9 +4,9 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui"
-    xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
     xmlns:pages="clr-namespace:MobileUI.Controls.Pages"
     xmlns:tabs="clr-namespace:MobileUI.Controls.Tabs"
+    xmlns:controls="clr-namespace:MobileUI.Controls"
     FlyoutBehavior="Disabled"
     Title="Login"
     Background="{StaticResource Primary}"
@@ -36,11 +36,11 @@
             <ShellContent ContentTemplate="{DataTemplate tabs:HomeTab}" />
         </Tab>
         <Tab 
-            Title="Profile" 
-            Route="ProfileTab"
+            Title="Barber" 
+            Route="BarberTab"
             Icon="{FontImageSource FontFamily=MaterialRegular, 
-                                        Glyph={x:Static uranium:MaterialRegular.Person}}">
-            <ShellContent ContentTemplate="{DataTemplate tabs:ProfileTab}" />
+                                        Glyph={x:Static uranium:MaterialRegular.Home}}">
+            <ShellContent ContentTemplate="{DataTemplate tabs:BarberTab}" />
         </Tab>
         <Tab Title="Settings" 
              Route="SettingsTab"

@@ -2,13 +2,13 @@
 
 public class OperationOutcome<T>
 {
-    public bool IsSucesseful { get; set; }
-    public string ErrorMessage { get; set; }
-    public T? Result { get; set; }
+    public bool IsSuccessfully { get; init; }
+    public string? ErrorMessage { get; init; }
+    public T? Result { get; init; }
 }
 
 public class OperationOutcome
 {
-    public bool IsSucesseful { get; set; }
-    public string ErrorMessage { get; set; }
+    public bool IsSuccessfully { get; init; }
+    public string? ErrorMessage { get; init; }
 }

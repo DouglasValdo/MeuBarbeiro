@@ -1,10 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
-<controls:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:controls="clr-namespace:MobileUI.Controls"
-             x:Class="MobileUI.Controls.Pages.ScheduleEditorPage">
-    <ContentPage.Content>
-        
-    </ContentPage.Content>
-</controls:BasePage>
+<pages:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:pages="clr-namespace:MobileUI.Controls"
+                xmlns:custom="clr-namespace:MobileUI.Controls.Custom"
+                xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui"
+                xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+                xmlns:models="clr-namespace:MobileUI.Objects.ViewModels"
+                x:DataType="models:ScheduleEditorPageViewModel"
+                x:Class="MobileUI.Controls.Pages.ScheduleEditorPage">
+    <VerticalStackLayout x:Name="Test" Children="{Binding .}">
+        <Button Text="Update Schedule" />
+    </VerticalStackLayout>
+
+    <uranium:UraniumContentPage.Attachments>
+        <material:BottomSheetView x:Name="PageBottomSheetView">
+            <material:BottomSheetView.StrokeShape>
+                <RoundRectangle CornerRadius="10, 10, 0, 0" StrokeThickness="0" />
+            </material:BottomSheetView.StrokeShape>
+        </material:BottomSheetView>
+    </uranium:UraniumContentPage.Attachments>
+</pages:BasePage>

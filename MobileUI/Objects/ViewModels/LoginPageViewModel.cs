@@ -1,16 +1,12 @@
-﻿using System.Globalization;
-using System.Text.RegularExpressions;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Domain.Common.Service;
-using Domain.Entities;
 using Domain.Models.Service;
 using Microsoft.Extensions.Logging;
 using MobileUI.Objects.Helpers;
 using MobileUI.Objects.Session;
 
-// ReSharper disable All
 
 namespace MobileUI.Objects.ViewModels;
 
@@ -51,36 +47,14 @@ public partial class LoginPageViewModel : ViewModelBase
                 return;
             }
 
-            if (serviceOutcome.IsSucesseful)
+            if (serviceOutcome.IsSuccessfully)
             {
                 //unable to log the user. user not found
                 // in that case we want to register the current user
                 if (serviceOutcome.Result == null)
-                {
-                    var userToRegister = new UserModel
-                    {
-                        PhoneNumber = int.Parse(UserPhoneNumber),
-                        IsDeleted =false
-                    };
-                    
-                    var navToRegisterParam = new ShellNavigationQueryParameters
-                    {
-                        { "GoToPage", "//RegisterPage" },
-                        {"UserToRegister", userToRegister}
-                    };
-                    await Shell.Current.GoToAsync("//OTPPage", navToRegisterParam);
-                }
+                    await ProcessGoToRegister(UserPhoneNumber);
                 else
-                {
-                    //store user in the app current session
-                    await new SessionManager().StoreUser(serviceOutcome.Result.Id);
-                    //navigate user to the home page and register infos in session for the current user
-                    var navToHomeParam = new ShellNavigationQueryParameters
-                    {
-                        { "GoToPage", "//HomeTab" }
-                    };
-                    await Shell.Current.GoToAsync("//OTPPage", navToHomeParam);
-                }
+                    await ProcessGoToOtpPage(serviceOutcome.Result.Id);
             }
             else
             {
@@ -104,5 +78,34 @@ public partial class LoginPageViewModel : ViewModelBase
             Logger.Log(LogLevel.Error, e, "Login page throws unknown error.");
             await ApplicationHelper.DisplayMessage("Some error has occured.");
         }
+    }
+
+    private static async Task ProcessGoToOtpPage(Guid resultId)
+    {
+        //store user in the app current session
+        await SessionManager.StoreUser(resultId);
+        //navigate user to the home page and register infos in session for the current user
+        var navToHomeParam = new ShellNavigationQueryParameters
+        {
+            { "GoToPage", "//HomeTab" }
+        };
+        await Shell.Current.GoToAsync("//OTPPage", navToHomeParam);
+    }
+
+    private static async Task ProcessGoToRegister(string userPhoneNumber)
+    {
+        var userToRegister = new UserModel
+        {
+            PhoneNumber = int.Parse(userPhoneNumber),
+            IsDeleted =false
+        };
+                    
+        var navToRegisterParam = new ShellNavigationQueryParameters
+        {
+            { "GoToPage", "//RegisterPage" },
+            {"UserToRegister", userToRegister}
+        };
+                    
+        await Shell.Current.GoToAsync("//OTPPage", navToRegisterParam);
     }
 }

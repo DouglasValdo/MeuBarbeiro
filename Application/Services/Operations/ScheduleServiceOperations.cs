@@ -6,13 +6,9 @@ using Domain.Repository;
 
 namespace ApplicationStructure.Services.Operations;
 
-public class ScheduleServiceOperations : BaseOperations<Schedule>, IScheduleOperations<Schedule>
+public class ScheduleServiceOperations(IRepository<Schedule> repository)
+    : BaseOperations<Schedule>(repository), IScheduleOperations<Schedule>
 {
-    
-    public ScheduleServiceOperations(IRepository<Schedule> repository) : base(repository)
-    {
-    }
-    
     public OperationOutcome Add(ScheduleModel model)
     {
         try
@@ -32,7 +28,7 @@ public class ScheduleServiceOperations : BaseOperations<Schedule>, IScheduleOper
             
             return new OperationOutcome
             {
-                IsSucesseful = true
+                IsSuccessfully = true
             };
         }
         catch (Exception e)
@@ -40,7 +36,7 @@ public class ScheduleServiceOperations : BaseOperations<Schedule>, IScheduleOper
             Console.WriteLine(e);
             return new OperationOutcome
             {
-                IsSucesseful = false,
+                IsSuccessfully = false,
                 ErrorMessage = e.Message
             };
         }
@@ -53,15 +49,15 @@ public class ScheduleServiceOperations : BaseOperations<Schedule>, IScheduleOper
             var schedule = MyRepository
                 .GetAll((s)
                     => s.UserId == userId && s.IsDeleted == false && 
-                       (s.IsTerminated == null || s.IsTerminated == false)).ToList();
+                       (s.IsTerminated == false)).ToList();
             
-            return new OperationOutcome<List<Schedule>> { IsSucesseful = true, Result = schedule};
+            return new OperationOutcome<List<Schedule>> { IsSuccessfully = true, Result = schedule};
         }
         catch (Exception e)
         {
             return new OperationOutcome<List<Schedule>>
             {
-                IsSucesseful = false,
+                IsSuccessfully = false,
                 ErrorMessage = e.Message
             };
         }
@@ -72,13 +68,13 @@ public class ScheduleServiceOperations : BaseOperations<Schedule>, IScheduleOper
         try
         {
            MyRepository.Remove((s) => s.Id == scheduleId);
-           return new OperationOutcome { IsSucesseful = true };
+           return new OperationOutcome { IsSuccessfully = true };
         }
         catch (Exception e)
         {
             return new OperationOutcome
             {
-                IsSucesseful = false,
+                IsSuccessfully = false,
                 ErrorMessage = e.Message
             };
         }
@@ -90,7 +86,7 @@ public class ScheduleServiceOperations : BaseOperations<Schedule>, IScheduleOper
         {
             return new OperationOutcome<IList<Schedule>>
             {
-                IsSucesseful = true,
+                IsSuccessfully = true,
                 Result = MyRepository.GetAll()
             };
         }
@@ -98,7 +94,7 @@ public class ScheduleServiceOperations : BaseOperations<Schedule>, IScheduleOper
         {
             return new OperationOutcome<IList<Schedule>>
             {
-                IsSucesseful = false,
+                IsSuccessfully = false,
                 ErrorMessage = e.Message
             };
         }
@@ -120,7 +116,7 @@ public class ScheduleServiceOperations : BaseOperations<Schedule>, IScheduleOper
             
             return new OperationOutcome<IList<Schedule>>
             {
-                IsSucesseful = true,
+                IsSuccessfully = true,
                 Result = allUserTerminatedSchedules
             };
         }
@@ -128,7 +124,7 @@ public class ScheduleServiceOperations : BaseOperations<Schedule>, IScheduleOper
         {
             return new OperationOutcome<IList<Schedule>>
             {
-                IsSucesseful = false,
+                IsSuccessfully = false,
                 ErrorMessage = e.Message
             };
         }

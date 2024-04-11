@@ -16,14 +16,14 @@ public static class MauiProgram
     {
         var builder = MauiApp.CreateBuilder();
         builder
-            .LoadViewsAndViewModels()
-            .LoadAppService()
+            .UseViewsAndViewModels()
+            .UseAppService()
             .UseMauiApp<App>()
             .UseMauiCommunityToolkit()
             .UseUraniumUI()
             .UseUraniumUIMaterial()
             .UseUraniumUIBlurs()
-            .LoadSerilog()
+            .UseLogger()
             .ConfigureMopups()
             .ConfigureFonts(fonts =>
             {

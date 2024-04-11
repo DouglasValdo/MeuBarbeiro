@@ -6,12 +6,9 @@ using Domain.Repository;
 
 namespace ApplicationStructure.Services.Operations;
 
-public class TaskServiceOperations : BaseOperations<ScheduleTask>, ITaskOperations<ScheduleTask>
+public class TaskServiceOperations(IRepository<ScheduleTask> repository)
+    : BaseOperations<ScheduleTask>(repository), ITaskOperations<ScheduleTask>
 {
-    public TaskServiceOperations(IRepository<ScheduleTask> repository) : base(repository)
-    {
-    }
-
     public OperationOutcome Add(TaskModel model)
     {
         try
@@ -30,14 +27,14 @@ public class TaskServiceOperations : BaseOperations<ScheduleTask>, ITaskOperatio
 
             return new OperationOutcome
             {
-                IsSucesseful = true
+                IsSuccessfully = true
             };
         }
         catch (Exception e)
         {
             return new OperationOutcome
             {
-                IsSucesseful = true,
+                IsSuccessfully = true,
                 ErrorMessage = e.Message
             };
         }
@@ -49,13 +46,13 @@ public class TaskServiceOperations : BaseOperations<ScheduleTask>, ITaskOperatio
         {
             MyRepository.Remove((t) => t.Id == taskTypeId);
 
-            return new OperationOutcome { IsSucesseful = true };
+            return new OperationOutcome { IsSuccessfully = true };
         }
         catch (Exception e)
         {
             return new OperationOutcome
             {
-                IsSucesseful = false,
+                IsSuccessfully = false,
                 ErrorMessage = e.Message
             };
         }
@@ -67,7 +64,7 @@ public class TaskServiceOperations : BaseOperations<ScheduleTask>, ITaskOperatio
         {
             return new OperationOutcome<IList<ScheduleTask>>
             {
-                IsSucesseful = true,
+                IsSuccessfully = true,
                 Result = MyRepository.GetAll()
             };
         }
@@ -75,7 +72,7 @@ public class TaskServiceOperations : BaseOperations<ScheduleTask>, ITaskOperatio
         {
             return new OperationOutcome<IList<ScheduleTask>>
             {
-                IsSucesseful = false,
+                IsSuccessfully = false,
                 ErrorMessage = e.Message
             };
         }

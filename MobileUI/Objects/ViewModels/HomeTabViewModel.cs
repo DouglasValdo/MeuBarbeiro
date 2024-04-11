@@ -8,8 +8,10 @@ using Domain.Common.Service;
 using Domain.Entities;
 using Microsoft.Extensions.Logging;
 using MobileUI.Controls.Custom;
+using MobileUI.Controls.Pages;
 using MobileUI.Objects.Helpers;
 using MobileUI.Objects.Session;
+using MobileUI.Utils;
 
 namespace MobileUI.Objects.ViewModels;
 
@@ -24,6 +26,7 @@ public partial class HomeTabViewModel : ViewModelBase
 
     public ICommand GetUpdateSchedulesCommand { get; }
     public ICommand DeleteScheduleCommand { get; }
+    public ICommand EditScheduleCommand => new AsyncRelayCommand(EditSchedule);
     private ConfirmModal? _confirmModal;
 
     public HomeTabViewModel(IApplicationService appServiceProvider, ILogger logger) : base(appServiceProvider, logger)
@@ -34,7 +37,6 @@ public partial class HomeTabViewModel : ViewModelBase
 
         GetUpdateSchedulesCommand = new RelayCommand(SetHomeTabContent);
         DeleteScheduleCommand = new AsyncRelayCommand(ShowDeleteScheduleModal);
-
     }
 
     private async void SetHomeTabContent()
@@ -42,19 +44,18 @@ public partial class HomeTabViewModel : ViewModelBase
         //when this task finishes we try to work with our "UserActiveSchedules"
         await GetUserActiveSchedules();
 
-        if (UserActiveSchedules.Any()) SetPageContent();
+        if (UserActiveSchedules.Any()) SetPageHasContent();
         else SetPageNoContent();
 
     }
 
     private async Task GetUserActiveSchedules()
     {
-        var sessionManager = new SessionManager();
-        var currentUserId = await sessionManager.GetCurrentUser();
+        var currentUserId = await SessionManager.GetCurrentUser();
         
         if (currentUserId is null)
         {
-            await ApplicationHelper.DisplayMessage("You need to login to be able to use this page.");
+            await ApplicationHelper.DisplayMessage(ResourceProvider.LoginRequired());
             return;
         }
 
@@ -68,9 +69,9 @@ public partial class HomeTabViewModel : ViewModelBase
             var userSchedules = await AppServiceProvider
                         .ScheduleService.GetUserSchedulesAsync(currentUserId.Value);
 
-            if (userSchedules == null || userSchedules.IsSucesseful == false)
+            if (userSchedules == null || userSchedules.IsSuccessfully == false)
             {
-                await ApplicationHelper.DisplayMessage("Error on retrieve User Schedules. Try again Later.");
+                await ApplicationHelper.DisplayMessage(ResourceProvider.UnableToRetrieveSchedule());
                 return;
             }
 
@@ -85,7 +86,7 @@ public partial class HomeTabViewModel : ViewModelBase
         catch (Exception e)
         {
             Logger.Log(LogLevel.Error, e, "Some error has occured while getting user Schedules.");
-            await ApplicationHelper.DisplayMessage("Some error has occured try again later.");
+            await ApplicationHelper.DisplayMessage(ResourceProvider.GenericError());
             throw;
         }
         finally
@@ -97,7 +98,7 @@ public partial class HomeTabViewModel : ViewModelBase
     private async Task ShowDeleteScheduleModal()
     {
         if (_userSelectedSchedule == null) 
-            await ApplicationHelper.DisplayMessage("Unable to delete Schedule \ud83d\ude25");
+            await ApplicationHelper.DisplayMessage(ResourceProvider.UnableToDeleteSchedule());
 
         _confirmModal = new ConfirmModal
         {
@@ -138,12 +139,12 @@ public partial class HomeTabViewModel : ViewModelBase
 
         if(_userSelectedSchedule == null) return;
         
-        var result = await ApplicationHelper.ExecuteLoadingTask("Deleting Schedule...", 
+        var result = await ApplicationHelper.ExecuteLoadingTask(ResourceProvider.DeletingSchedule(), 
             () => AppServiceProvider.ScheduleService.DeleteScheduleAsync(_userSelectedSchedule.Id));
         
-        if(result == null || result.IsSucesseful == false) return;
+        if(result == null || result.IsSuccessfully == false) return;
 
-        await Shell.Current.DisplaySnackbar($"Deleted {_userSelectedSchedule.ScheduleTask.Name}.",
+        await Shell.Current.DisplaySnackbar($"{_userSelectedSchedule.ScheduleTask.Name} deleted.",
             null, "OK", TimeSpan.FromSeconds(5));
         
         //we want to update the list of active schedules after doing a
@@ -151,7 +152,7 @@ public partial class HomeTabViewModel : ViewModelBase
         SetHomeTabContent();
     }
     
-    private void SetPageContent()
+    private void SetPageHasContent()
     {
         IsListViewSchedulesVisible = true;
         IsNoScheduleVisible = !IsListViewSchedulesVisible;
@@ -162,5 +163,9 @@ public partial class HomeTabViewModel : ViewModelBase
         IsListViewSchedulesVisible = false;
         IsNoScheduleVisible = !IsListViewSchedulesVisible;
     }
-    
+
+    private static async Task EditSchedule()
+    {
+        await Shell.Current.GoToAsync($"{nameof(ScheduleEditorPage)}");
+    }
 }

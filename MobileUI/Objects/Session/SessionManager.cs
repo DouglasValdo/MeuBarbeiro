@@ -1,10 +1,10 @@
 ﻿namespace MobileUI.Objects.Session;
 
-public class SessionManager
+public static class SessionManager
 {
     private const string LoggedUserKey = "LOGGEDUSERID";
     
-    public async Task<Guid?> GetCurrentUser()
+    public static async Task<Guid?> GetCurrentUser()
     {
         var loggedUserId = await SecureStorage.GetAsync(LoggedUserKey);
 
@@ -13,8 +13,13 @@ public class SessionManager
         return Guid.Parse(loggedUserId); 
     }
 
-    public async Task StoreUser(Guid userId)
+    public static async Task StoreUser(Guid userId)
     {
         await SecureStorage.SetAsync(LoggedUserKey, userId.ToString());
+    }
+
+    public static void ClearUser()
+    {
+        SecureStorage.Remove(LoggedUserKey);
     }
 }

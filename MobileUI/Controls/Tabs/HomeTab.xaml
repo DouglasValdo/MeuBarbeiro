@@ -58,7 +58,8 @@
             </material:BottomSheetView.StrokeShape>
             <material:BottomSheetView.Body>
                 <VerticalStackLayout Margin="20">
-                    <Button Text="Editar " StyleClass="TextButton" CornerRadius="10">
+                    <Button Text="Editar " StyleClass="TextButton" CornerRadius="10"
+                            Command="{Binding EditScheduleCommand}">
                         <Button.ImageSource>
                             <FontImageSource FontFamily="MaterialRegular"
                                              Glyph="{x:Static uranium:MaterialRegular.Edit}"

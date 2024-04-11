@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MobileUI.Controls.Tabs;
+namespace MobileUI.Controls.Custom;
 
-public partial class ProfileTab : ContentPage
+public partial class NoBarberView : ContentView
 {
-    public ProfileTab()
+    public NoBarberView()
     {
         InitializeComponent();
     }

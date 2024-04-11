@@ -40,7 +40,7 @@ public partial class RegisterPageViewModel : ViewModelBase, IQueryAttributable
                 return;
             }
 
-            if (registerUserServiceOutcome.IsSucesseful) await Shell.Current.GoToAsync("//HomeTab");
+            if (registerUserServiceOutcome.IsSuccessfully) await Shell.Current.GoToAsync("//HomeTab");
             else
             {
                 Logger.Log(LogLevel.Information, 

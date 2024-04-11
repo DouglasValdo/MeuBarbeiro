@@ -13,10 +13,10 @@ namespace MobileUI.Objects.Extensions;
 
 public static class MauiBuilderExtensions   
 {
-    public static MauiAppBuilder LoadAppService(this MauiAppBuilder builder)
+    public static MauiAppBuilder UseAppService(this MauiAppBuilder builder)
     {
         builder.Services
-            .AddTransient<IApplicationService>((s) 
+            .AddTransient<IApplicationService>((sp) 
                 => new ApplicationServiceEndpoints(AppApiHttpClient.GetClient()));
         
         builder.Services.AddMopupsDialogs();
@@ -24,21 +24,32 @@ public static class MauiBuilderExtensions
         return builder;
     }
     
-    public static MauiAppBuilder LoadViewsAndViewModels(this MauiAppBuilder builder)
+    public static MauiAppBuilder UseViewsAndViewModels(this MauiAppBuilder builder)
     {
+        //Pages
         builder.Services.AddScoped<LoginPageViewModel>();
         builder.Services.AddTransient<LoginPage>();
+        
         builder.Services.AddScoped<RegisterPageViewModel>();
         builder.Services.AddTransient<RegisterPage>();
+        
+        builder.Services.AddTransient<ScheduleEditorPageViewModel>();
+        builder.Services.AddScoped<ScheduleEditorPage>();
+        
+        //tabs
         builder.Services.AddScoped<HomeTab>();
         builder.Services.AddTransient<HomeTabViewModel>();
-        builder.Services.AddScoped<ScheduleEditorPage>();
-        builder.Services.AddTransient<HomeTabViewModel>();
+        
+        builder.Services.AddScoped<BarberTabViewModel>();
+        builder.Services.AddTransient<BarberTab>();
+        
+        builder.Services.AddScoped<SettingsTab>();
+        builder.Services.AddTransient<SettingsTabViewModel>();
         
         return builder;
     }
     
-    public static MauiAppBuilder LoadSerilog(this MauiAppBuilder builder)
+    public static MauiAppBuilder UseLogger(this MauiAppBuilder builder)
     {
         builder.Logging.AddStreamingFileLogger(options =>
         {

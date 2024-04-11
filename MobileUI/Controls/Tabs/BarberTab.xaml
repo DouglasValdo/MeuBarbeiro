@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:customControls="clr-namespace:MobileUI.Controls.Custom"
+             xmlns:viewmodels="clr-namespace:MobileUI.Objects.ViewModels"
+             x:DataType="viewmodels:BarberTabViewModel"
+             x:Class="MobileUI.Controls.Tabs.BarberTab">
+    <ContentPage.Content>
+        <StackLayout IsVisible="{Binding HasBarber}" 
+                     VerticalOptions="Center" Margin="50, 0"
+                     HorizontalOptions="Fill" Padding="0, 10">
+            <customControls:NoBarberView />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -7,4 +7,5 @@ public interface IApplicationService
      IScheduleService ScheduleService { get; }
      ITaskService TaskService     { get;  }
      IUserService UserService         { get; }
+     IBarberShopService BarberShopService { get; }
 }

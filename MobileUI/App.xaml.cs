@@ -25,7 +25,7 @@ public partial class App : Application
         Routing.RegisterRoute(nameof(OTPPage),       typeof(OTPPage));
         Routing.RegisterRoute(nameof(HomeTab),       typeof(HomeTab));
         Routing.RegisterRoute(nameof(SettingsTab),   typeof(SettingsTab));
-        Routing.RegisterRoute(nameof(ProfileTab),    typeof(ProfileTab));
+        Routing.RegisterRoute(nameof(BarberTab),    typeof(BarberTab));
         Routing.RegisterRoute(nameof(ScheduleEditorPage),    typeof(ScheduleEditorPage));
     }
 

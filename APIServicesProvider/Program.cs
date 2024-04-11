@@ -24,5 +24,6 @@ var dbContext = new DbContextProvider().GetDbContext(connectionString);
 app.MapUserEndpoint(dbContext);
 app.MapScheduleEndpoint(dbContext);
 app.MapTaskEndpoint(dbContext);
+app.MapBarberShopEndpoint(dbContext);
 
 app.Run();

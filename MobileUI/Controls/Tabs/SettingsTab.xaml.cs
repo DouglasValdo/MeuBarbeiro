@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Domain.Common.Service;
+using Microsoft.Extensions.Logging;
+using MobileUI.Objects.ViewModels;
 
 namespace MobileUI.Controls.Tabs;
 
 public partial class SettingsTab : ContentPage
 {
-    public SettingsTab()
+    public SettingsTab(IApplicationService applicationService, ILogger<SettingsTab> logger)
     {
         InitializeComponent();
+        BindingContext = new SettingsTabViewModel(applicationService, logger);
     }
 }

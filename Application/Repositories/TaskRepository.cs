@@ -11,53 +11,53 @@ public class TaskRepository : BaseRepository, IRepository<ScheduleTask>
     
     public void Add(ScheduleTask toAdd)
     {
-        var exist = Context.ScheduleTask.SingleOrDefault(u => u.Id == toAdd.Id);
+        var exist = Context.ScheduleTasks.SingleOrDefault(u => u.Id == toAdd.Id);
 
         if (exist != null) return;
 
-        Context.ScheduleTask.Add(toAdd);
+        Context.ScheduleTasks.Add(toAdd);
 
         Context.SaveChanges();
     }
 
     public void Update(ScheduleTask newValue, Expression<Func<ScheduleTask, bool>> expression)
     {
-        var Task = Context.ScheduleTask.SingleOrDefault(expression);
+        var task = Context.ScheduleTasks.SingleOrDefault(expression);
 
-        if (Task == null) return;
+        if (task == null) return;
 
-        Task.Name       = newValue.Name;
-        Task.Price      = newValue.Price;
-        Task.IsAvailable  = newValue.IsAvailable;
+        task.Name       = newValue.Name;
+        task.Price      = newValue.Price;
+        task.IsAvailable  = newValue.IsAvailable;
 
         Context.SaveChanges();
     }
 
     public void Remove(Expression<Func<ScheduleTask, bool>> expression)
     {
-        var Task = Context.ScheduleTask.SingleOrDefault(expression);
+        var task = Context.ScheduleTasks.SingleOrDefault(expression);
 
-        if (Task == null) return;
+        if (task == null) return;
 
-        Task.IsDeleted = true;
+        task.IsDeleted = true;
         
         Context.SaveChanges();
     }
 
     public ScheduleTask? Get(Expression<Func<ScheduleTask, bool>> expression)
     {
-        var Task = Context.ScheduleTask.SingleOrDefault(expression);
+        var task = Context.ScheduleTasks.SingleOrDefault(expression);
 
-        return Task;
+        return task;
     }
 
     public IList<ScheduleTask> GetAll(Expression<Func<ScheduleTask, bool>> expression)
     {
-        return Context.ScheduleTask.Where(expression).ToList();
+        return Context.ScheduleTasks.Where(expression).ToList();
     }
 
     public IList<ScheduleTask> GetAll()
     {
-        return Context.ScheduleTask.ToList();
+        return Context.ScheduleTasks.ToList();
     }
 }

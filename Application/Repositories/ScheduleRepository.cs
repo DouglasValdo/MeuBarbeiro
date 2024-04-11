@@ -9,23 +9,22 @@ namespace ApplicationStructure.Repositories;
 
 public class ScheduleRepository : BaseRepository, IRepository<Schedule>
 {
-    [SuppressMessage("ReSharper", "ConvertToPrimaryConstructor")]
     public ScheduleRepository(MeuBarbeiroDbContext context) : base(context) { }
     
     public void Add(Schedule toAdd)
     {
-        var exist = Context.Schedule.SingleOrDefault(u => u.Id == toAdd.Id);
+        var exist = Context.Schedules.SingleOrDefault(u => u.Id == toAdd.Id);
 
         if (exist != null) return;
 
-        Context.Schedule.Add(toAdd);
+        Context.Schedules.Add(toAdd);
 
         Context.SaveChanges();
     }
 
     public void Update(Schedule newValue, Expression<Func<Schedule, bool>> expression)
     {
-        var schedule = Context.Schedule.SingleOrDefault(expression);
+        var schedule = Context.Schedules.SingleOrDefault(expression);
 
         if (schedule == null) return;
 
@@ -39,7 +38,7 @@ public class ScheduleRepository : BaseRepository, IRepository<Schedule>
 
     public void Remove(Expression<Func<Schedule, bool>> expression)
     {
-        var schedule = Context.Schedule.SingleOrDefault(expression);
+        var schedule = Context.Schedules.SingleOrDefault(expression);
 
         if (schedule == null) return;
 
@@ -50,18 +49,18 @@ public class ScheduleRepository : BaseRepository, IRepository<Schedule>
 
     public Schedule? Get(Expression<Func<Schedule, bool>> expression)
     {
-        var schedule = Context.Schedule.Include(s => s.ScheduleTask).SingleOrDefault(expression);
+        var schedule = Context.Schedules.Include(s => s.ScheduleTask).SingleOrDefault(expression);
 
         return schedule;
     }
 
     public IList<Schedule> GetAll(Expression<Func<Schedule, bool>> expression)
     {
-        return Context.Schedule.Include(s => s.ScheduleTask).Where(expression).ToList();
+        return Context.Schedules.Include(s => s.ScheduleTask).Where(expression).ToList();
     }
 
     public IList<Schedule> GetAll()
     {
-        return Context.Schedule.Include(s => s.ScheduleTask).ToList();
+        return Context.Schedules.Include(s => s.ScheduleTask).ToList();
     }
 }

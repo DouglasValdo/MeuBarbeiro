@@ -16,22 +16,22 @@ public static class TaskEndpointExtension
     {
         IRepository<ScheduleTask> scheduleRepository = new TaskRepository(dbContext);
 
-        var TaskEndPointOperations = new TaskServiceOperations(scheduleRepository);
+        var taskEndPointOperations = new TaskServiceOperations(scheduleRepository);
 
-        var TaskGroupedEndpoint = app.MapGroup("/api/Task").WithTags("Task");
+        var taskGroupedEndpoint = app.MapGroup("/api/Task").WithTags("Task");
         
-        TaskGroupedEndpoint.MapPost("/AddTask", ([FromBody] TaskModel model)
-            => TaskEndPointOperations.Add(model));
+        taskGroupedEndpoint.MapPost("/AddTask", ([FromBody] TaskModel model)
+            => taskEndPointOperations.Add(model));
         
-        TaskGroupedEndpoint.MapPut("/UpdateTask/{TaskId:guid}", 
-            (Guid TaskId, [FromBody] TaskModel model)
-                => TaskEndPointOperations.Update(TaskId, model));
+        taskGroupedEndpoint.MapPut("/UpdateTask/{taskId:guid}", 
+            (Guid taskId, [FromBody] TaskModel model)
+                => taskEndPointOperations.Update(taskId, model));
         
-        TaskGroupedEndpoint.MapDelete("/DeleteTask/{taskId:guid}", (Guid taskId)
-            => TaskEndPointOperations.Delete(taskId));
+        taskGroupedEndpoint.MapDelete("/DeleteTask/{taskId:guid}", (Guid taskId)
+            => taskEndPointOperations.Delete(taskId));
 
-        TaskGroupedEndpoint.MapGet("/GetAllTasks", [OutputCache]()
-            => TaskEndPointOperations.GetAll());
+        taskGroupedEndpoint.MapGet("/GetAllTasks", [OutputCache]()
+            => taskEndPointOperations.GetAll());
         
         return app;
     }

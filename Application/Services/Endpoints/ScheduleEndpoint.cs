@@ -2,6 +2,8 @@
 using ApplicationStructure.Services.Endpoints;
 using Domain.Common.Service;
 using Domain.Entities;
+using Domain.Exceptions;
+using Domain.Interfaces;
 using Domain.Interfaces.Services;
 // ReSharper disable All
 

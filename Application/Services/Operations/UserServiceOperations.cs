@@ -6,11 +6,9 @@ using Domain.Repository;
 
 namespace ApplicationStructure.Services.Operations;
 
-public class UserServiceOperations : BaseOperations<User>, IUserOperations<User>
+public class UserServiceOperations(IRepository<User> repository)
+    : BaseOperations<User>(repository), IUserOperations<User>
 {
-    public UserServiceOperations(IRepository<User> repository) : base(repository)
-    {
-    }
     public OperationOutcome<User?> GetByPhoneNumber(int phoneNumber)
     {
         try
@@ -19,13 +17,13 @@ public class UserServiceOperations : BaseOperations<User>, IUserOperations<User>
             
             return new OperationOutcome<User?>
             {
-                IsSucesseful = true,
+                IsSuccessfully = true,
                 Result = foundUser
             };
         }
         catch (Exception e)
         {
-            return new OperationOutcome<User?> { IsSucesseful = false, ErrorMessage = e.Message };
+            return new OperationOutcome<User?> { IsSuccessfully = false, ErrorMessage = e.Message };
         }
     }
 
@@ -37,13 +35,13 @@ public class UserServiceOperations : BaseOperations<User>, IUserOperations<User>
             
             return new OperationOutcome<User?>
             {
-                IsSucesseful = true,
+                IsSuccessfully = true,
                 Result = foundUser
             };
         }
         catch (Exception e)
         {
-            return new OperationOutcome<User?> { IsSucesseful = false, ErrorMessage = e.Message };
+            return new OperationOutcome<User?> { IsSuccessfully = false, ErrorMessage = e.Message };
         }
     }
 
@@ -63,12 +61,12 @@ public class UserServiceOperations : BaseOperations<User>, IUserOperations<User>
 
             return new OperationOutcome
             {
-                IsSucesseful = true
+                IsSuccessfully = true
             };
         }
         catch (Exception e)
         {
-            return new OperationOutcome { IsSucesseful = false, ErrorMessage = e.Message };
+            return new OperationOutcome { IsSuccessfully = false, ErrorMessage = e.Message };
         }
     }
 
@@ -78,11 +76,11 @@ public class UserServiceOperations : BaseOperations<User>, IUserOperations<User>
         {
             MyRepository?.Remove((u) => u.Id == userId);
             
-            return new OperationOutcome { IsSucesseful = true };
+            return new OperationOutcome { IsSuccessfully = true };
         }
         catch (Exception e)
         {
-            return new OperationOutcome { IsSucesseful = false, ErrorMessage = e.Message };
+            return new OperationOutcome { IsSuccessfully = false, ErrorMessage = e.Message };
         }
     }
 
@@ -92,11 +90,11 @@ public class UserServiceOperations : BaseOperations<User>, IUserOperations<User>
         {
             var allUsers = MyRepository?.GetAll();
             
-            return new OperationOutcome<IList<User>> { IsSucesseful = true, Result = allUsers};
+            return new OperationOutcome<IList<User>> { IsSuccessfully = true, Result = allUsers};
         }
         catch (Exception e)
         {
-            return new OperationOutcome<IList<User>> { IsSucesseful = false, ErrorMessage = e.Message };
+            return new OperationOutcome<IList<User>> { IsSuccessfully = false, ErrorMessage = e.Message };
         }
     }
 
