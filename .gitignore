@@ -3,3 +3,6 @@ obj/
 /packages/
 riderModule.iml
 /_ReSharper.Caches/
+/.vs
+/APIServicesProvider/APIServicesProvider.csproj.user
+/MobileUI/MobileUI.csproj.user
