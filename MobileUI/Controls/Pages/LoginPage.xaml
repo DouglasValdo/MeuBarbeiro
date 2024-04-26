@@ -5,12 +5,13 @@
                 xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
                 xmlns:viewmodels="clr-namespace:MobileUI.Objects.ViewModels"
                 xmlns:pages="clr-namespace:MobileUI.Controls"
+                xmlns:customControls="clr-namespace:MobileUI.Controls.Custom"
                 xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui"
                 x:Class="MobileUI.Controls.Pages.LoginPage"
                 Shell.NavBarIsVisible="False"
                 x:DataType="viewmodels:LoginPageViewModel">
     <ContentPage.Content>
-        <Grid BackgroundColor="{StaticResource Secondary}">
+        <!--<Grid BackgroundColor="{StaticResource Secondary}">
             <Image Source="background" Aspect="AspectFill" Scale="1.1" />
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
@@ -45,6 +46,7 @@
                             Margin="0, 10" Command="{Binding LoginCommand}" />
                 </VerticalStackLayout>
             </Border>
-        </Grid>
+        </Grid>-->
+        <customControls:SchedulingCalendar />
     </ContentPage.Content>
 </pages:BasePage>

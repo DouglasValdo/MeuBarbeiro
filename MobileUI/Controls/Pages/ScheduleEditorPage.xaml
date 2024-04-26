@@ -9,8 +9,8 @@
                 xmlns:models="clr-namespace:MobileUI.Objects.ViewModels"
                 x:DataType="models:ScheduleEditorPageViewModel"
                 x:Class="MobileUI.Controls.Pages.ScheduleEditorPage">
-    <VerticalStackLayout x:Name="Test" Children="{Binding .}">
-        <Button Text="Update Schedule" />
+    <VerticalStackLayout>
+        <custom:SchedulingCalendar />
     </VerticalStackLayout>
 
     <uranium:UraniumContentPage.Attachments>

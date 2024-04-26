@@ -2,6 +2,16 @@
 
 public static class ResourceProvider
 {
+    public static Dictionary<DayOfWeek, string> PTDaysOfWeek = new Dictionary<DayOfWeek, string>
+        {
+            {DayOfWeek.Monday, "S" },
+            {DayOfWeek.Tuesday, "T" },
+            {DayOfWeek.Wednesday, "Q" },
+            {DayOfWeek.Thursday, "Q" },
+            {DayOfWeek.Friday, "S" },
+            {DayOfWeek.Saturday, "S" },
+            {DayOfWeek.Sunday, "D" }
+        };
     public static string LoginRequired()
     {
         return "You need to login to be able to use this page.";
