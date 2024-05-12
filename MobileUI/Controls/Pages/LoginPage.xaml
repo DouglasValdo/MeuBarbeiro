@@ -11,7 +11,7 @@
                 Shell.NavBarIsVisible="False"
                 x:DataType="viewmodels:LoginPageViewModel">
     <ContentPage.Content>
-        <!--<Grid BackgroundColor="{StaticResource Secondary}">
+        <Grid BackgroundColor="{StaticResource Secondary}">
             <Image Source="background" Aspect="AspectFill" Scale="1.1" />
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
@@ -46,7 +46,6 @@
                             Margin="0, 10" Command="{Binding LoginCommand}" />
                 </VerticalStackLayout>
             </Border>
-        </Grid>-->
-        <customControls:SchedulingCalendar />
+        </Grid>
     </ContentPage.Content>
 </pages:BasePage>

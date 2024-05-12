@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using Infrastructure.DBProvider;
+using System.Text.Json.Serialization;
 
 namespace ServicesProvider.Extensions;
 
@@ -16,5 +17,12 @@ public static class BuilderExtensions
         
         builder.Services.ConfigureHttpJsonOptions(options 
             => options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
+        //Retrieve the dbContext and pass it to the endpoints
+        var connectionString = builder.Configuration.GetConnectionString("AppConnectionString");
+
+        var dbContext = new DbContextProvider().GetDbContext(connectionString ?? string.Empty);
+
+        builder.Services.AddSingleton(dbContext);
     }
 }

@@ -7,23 +7,19 @@ builder.LoadServices();
 var app = builder.Build();
 
 app.UseSwagger();
-app.UseSwaggerUI();
+app.UseSwaggerUI(s =>
+{
+    s.SwaggerEndpoint("/swagger/v1/swagger.json", "v1.1");
+});
 
 app.UseHttpsRedirection();
 app.UseRouting();
 app.UseOutputCache();
 
-//Retrieve the dbContext and pass it to the endpoints
-var connectionString = app.Configuration.GetConnectionString("AppConnectionString");
-
-if (string.IsNullOrWhiteSpace(connectionString)) 
-    throw new NoConnectionStringProvidedException();
-
-var dbContext = new DbContextProvider().GetDbContext(connectionString);
 //mapping endpoints
-app.MapUserEndpoint(dbContext);
-app.MapScheduleEndpoint(dbContext);
-app.MapTaskEndpoint(dbContext);
-app.MapBarberShopEndpoint(dbContext);
+app.MapUserEndpoint();
+app.MapScheduleEndpoint();
+app.MapTaskEndpoint();
+app.MapBarberShopEndpoint();
 
 app.Run();

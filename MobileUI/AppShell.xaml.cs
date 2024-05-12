@@ -13,10 +13,10 @@ public partial class AppShell : Shell
     protected override async void OnAppearing()
     {
         //check if user is already logged in
-         //var loggedUser = await SessionManager.GetCurrentUser();
-        
-         //if (loggedUser != null ) await Current.GoToAsync("//HomeTab");
-        
+        var loggedUser = await SessionManager.GetCurrentUser();
+
+        if (loggedUser != null) await Current.GoToAsync("//HomeTab");
+
         base.OnAppearing();
     }
 

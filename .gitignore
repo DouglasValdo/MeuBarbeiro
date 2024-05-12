@@ -4,5 +4,9 @@ obj/
 riderModule.iml
 /_ReSharper.Caches/
 /.vs
+/vs
+.vs/
+/.vs/
 /APIServicesProvider/APIServicesProvider.csproj.user
 /MobileUI/MobileUI.csproj.user
+/APIServicesProvider/Properties/PublishProfiles

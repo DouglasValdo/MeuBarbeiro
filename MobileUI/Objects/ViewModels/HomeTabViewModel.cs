@@ -66,8 +66,8 @@ public partial class HomeTabViewModel : ViewModelBase
             //in case the no schedule is visible hide it
             IsNoScheduleVisible = false;
             
-            var userSchedules = await AppServiceProvider
-                        .ScheduleService.GetUserSchedulesAsync(currentUserId.Value);
+            var userSchedules = await ApplicationHelper.ExecuteLoadingTask(ResourceProvider.LoadingSchedule(), 
+                () => AppServiceProvider.ScheduleService.GetUserSchedulesAsync(currentUserId.Value));
 
             if (userSchedules == null || userSchedules.IsSuccessfully == false)
             {

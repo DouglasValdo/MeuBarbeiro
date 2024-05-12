@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Domain.Common.Service;
+using Domain.Interfaces.Services;
 using Microsoft.Extensions.Logging;
 using UraniumUI.Material.Attachments;
 
@@ -7,23 +8,11 @@ namespace MobileUI.Objects.ViewModels;
 
 public partial class ScheduleEditorPageViewModel: ViewModelBase
 {
-    [ObservableProperty] private BottomSheetView _bottomSheetView = new ();
-    [ObservableProperty] private IView _container;
+    [ObservableProperty] private IBarberShopService barberShopService;
 
     public ScheduleEditorPageViewModel(IApplicationService appServiceProvider, ILogger logger)
         : base(appServiceProvider, logger)
     {
-        _container = GetContentView();
+        barberShopService = appServiceProvider.BarberShopService;
     }
-
-    private IView GetContentView()
-    {
-        var horizontalLayout = new HorizontalStackLayout();
-        
-        
-        
-        
-        return horizontalLayout;
-    }
-
 }
