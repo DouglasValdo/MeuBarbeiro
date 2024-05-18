@@ -3,21 +3,14 @@
 <pages:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                 xmlns:pages="clr-namespace:MobileUI.Controls"
-                xmlns:custom="clr-namespace:MobileUI.Controls.Custom.Scheduling"
+                xmlns:custom="clr-namespace:MobileUI.Controls.Custom.ScheduleCalendar"
                 xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui"
                 xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
                 xmlns:models="clr-namespace:MobileUI.Objects.ViewModels"
                 x:DataType="models:ScheduleEditorPageViewModel"
+                Shell.NavBarIsVisible="False"
                 x:Class="MobileUI.Controls.Pages.ScheduleEditorPage">
     <VerticalStackLayout>
-        <custom:ScheduleCalendar ScheduleHoursContainer="{x:Binding Source={x:Reference PageBottomSheetView}}" SchedulingService="{Binding BarberShopService}" />
+        <custom:MeuBarbeiroCalendar AppService="{Binding AppService}" BackgroundColor="{StaticResource Secondary}" Margin="5"/>
     </VerticalStackLayout>
-
-    <uranium:UraniumContentPage.Attachments>
-        <material:BottomSheetView x:Name="PageBottomSheetView">
-            <material:BottomSheetView.StrokeShape>
-                <RoundRectangle CornerRadius="10, 10, 0, 0" StrokeThickness="0" />
-            </material:BottomSheetView.StrokeShape>
-        </material:BottomSheetView>
-    </uranium:UraniumContentPage.Attachments>
 </pages:BasePage>

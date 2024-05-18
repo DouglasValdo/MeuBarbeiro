@@ -8,11 +8,11 @@ namespace MobileUI.Objects.ViewModels;
 
 public partial class ScheduleEditorPageViewModel: ViewModelBase
 {
-    [ObservableProperty] private IBarberShopService barberShopService;
+    [ObservableProperty] private IApplicationService appService;
 
     public ScheduleEditorPageViewModel(IApplicationService appServiceProvider, ILogger logger)
         : base(appServiceProvider, logger)
     {
-        barberShopService = appServiceProvider.BarberShopService;
+        appService = appServiceProvider;
     }
 }
